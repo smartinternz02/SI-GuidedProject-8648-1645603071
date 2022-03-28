@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Predicting Life Expectancy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+        <style>
+            .form-control {
+                background-color: white;
+                color: black;
+            }
+
+            .btn {
+            background-color: black
+ ;
+            border: none;
+            color: white;
+            padding: 12px 16px;
+            font-size: 16px;
+            cursor: pointer;
+}
+
+        /* Darker background on mouse-over */
+        .btn:hover {
+        background-color: #993333;
+        }
+        body {
+  background-image: url("../static/img/form_header.jpg")}
+
+        </style>
+
+</head>
+
+<body>
+
+    <!--###########################################-->
+<!-- Navbar -->
+<div class="w3-top">
+        <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
+          <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+          <a href="/" class="w3-bar-item w3-button w3-theme-l1">LIFESPAN</a>
+          <!-- <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">About</a>
+          <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Values</a> -->
+       
+        </div>
+       </div>
+<!-- ############################################### -->
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <script>
+    var messages = {{ messages | safe }};
+    for (var i=0; i<messages.length; i++) {
+        swal.fire(messages[i]);
+    }
+    </script>
+    {% endif %}
+    {% endwith %}
+<!-- Navigation -->
+</br>
+</br>
+</br>
+<div class="ng-scope">
+<!-- <button class="btn"><a href="/"><i class="fa fa-home"></i> Home </a></button> -->
+<div class="container text-center">
+<div class="row" style="justify-content: center">
+<h1>Will the Patient Survive Post Thoracic Surgery ? </h1>
+
+</div>
+
+</div>
+</div>
+</br>
+</br>
+<!--This is python flask flash code-->
+
+
+ <div class="container">
+<div class="row">
+<div class="col-md-12">
+<div class="well well-sm">
+
+<form id="my-form" method="POST" action="/form" role="form", name="surgeryform" class="form-horizontal">
+ <fieldset>
+<legend class="text-center header">Find Out Whether Your Patient Is High Risk Before The Surgery</legend>
+
+<!--####################################################-->
+
+<!--######################################################-->
+                    
+ <div class="form-group">
+ <span class="col-md-1 col-md-offset-2 text-center"> <label for="inputEmail4">DIAGNOSIS</label></span>
+<div class="col-md-8">
+ <input id="input1" name="diagnosis" type="text" placeholder="ICD-10 codes" class="form-control">
+</div>
+</div>
+<div class="form-group">
+<span class="col-md-1 col-md-offset-2 text-center"><label for="inputPassword4">FEV</label></span>
+<div class="col-md-8">
+  <input type="number" class="form-control" id="input2" name = "fev" placeholder="Forced expiratory volume">
+ </div>
+</div>
+ <div class="form-group">
+<span class="col-md-1 col-md-offset-2 text-center"><label for="inputState">AGE</label></span>
+ <div class="col-md-8">
+ <input type="number" class="form-control" id="input3" name = "age" >
+</div>
+</div>
+ <div class="form-group">
+ <span class="col-md-1 col-md-offset-2 text-center"><label for="inputState">PERFORMANCE</label></span>
+ <div class="col-md-6 col-md-push-1">
+<select id="input4" class="form-control" name="performance" >
+    <option value="" disabled selected hidden>Performance status on Zubrod scale, Good (0) to Poor (2)</option>
+    <option value = "0">PRZ0</option>
+    <option value="1">PRZ1</option>
+    <option value="2">PRZ2</option>
+</select>
+  </div>
+ </div>
+ <div class="form-group">
+<span class="col-md-1 col-md-offset-2 text-center"><label for="inputState">TNM</label></span>
+<div class="col-md-6 col-md-push-1">
+<select id="input5" class="form-control" name = "tnm">
+        <option value="" disabled selected hidden>Tumor Size</option>
+    <option value = "1">OCT11</option>
+    <option value="2">OCT12</option>
+    <option value="3">OCT13</option>
+    <option value="4">OCT14</option>
+</select>
+</div>
+</div>
+</br>
+<div class="row">
+<div class="col-md-2 col-md-offset-2">
+<label for="painf">PAIN</label>
+<p>
+<input type="radio" name="pain" value="1" >Yes</input>
+</p>
+<p>
+<input type="radio" name="pain" value="0">No</input>
+</p>
+</div>
+<div class="col-md-2">
+<label for="hae">HAEMOPTYSIS</label>
+<p>
+<input type="radio" name="hae" value="1" >Yes</input>
+</p>
+<p>
+<input type="radio" name="hae" value="0">No</input>
+</p>
+</div>
+<div class="col-md-2">
+<label for="dysf">DYSPNOEA</label>
+<p>
+<input type="radio" name="dys" value="1" >Yes</input>
+</p>
+<p>
+<input type="radio" name="dys" value="0">No</input>
+</p>
+</div>
+<div class="col-md-2">
+<label for="coughf">COUGH</label>
+<p>
+<input type="radio" name="cough" value="1" >Yes</input>
+</p>
+<p>
+<input type="radio" name="cough" value="0">No</input>
+</p>
+</div>
+<div class="col-md-2">
+<label for="weaknessf">WEAKNESS</label>
+<p>
+<input type="radio" name="weakness" value="1">Yes</input>
+</p>
+<p>
+<input type="radio" name="weakness" value="0" >No</input>
+</p>
+</div>
+</div>
+<br />
+<br />
+
+<div class="row">
+<div class="col-md-2 col-md-offset-2">
+<label for="dmf">DM</label>
+<p>
+    <input type="radio" name="dm" value="1" >Yes</input>
+</p>
+<p>
+    <input type="radio" name="dm" value="0">No</input>
+</p>
+</div>
+<div class="col-md-2">
+<label for="mif">MI</label>
+<p>
+    <input type="radio" name="mi" value="1" >Yes</input>
+</p>
+<p>
+    <input type="radio" name="mi" value="0">No</input>
+</p>
+</div>
+<div class="col-md-2">
+<label for="padf">PAD</label>
+<p>
+    <input type="radio" name="pad" value="1" >Yes</input>
+</p>
+<p>
+    <input type="radio" name="pad" value="0">No</input>
+</p>
+</div>
+<div class="col-md-2">
+<label for="smokingf">SMOKING</label>
+<p>
+    <input type="radio" name="smoking" value="1" >Yes</input>
+</p>
+<p>
+    <input type="radio" name="smoking" value="0">No</input>
+</p>
+</div>
+<div class="col-md-2">
+<label for="asthmaf">ASTHMA</label>
+<p>
+    <input type="radio" name="asthma" value="1" >Yes</input>
+</p>
+<p>
+    <input type="radio" name="asthma" value="0">No</input>
+</p>
+</div>
+</div>
+</br>
+</br>
+<div class="form-group">
+ <div class="col-md-12 text-center">
+
+     <button role="button" id ="predict" name = "submit-button" class="btn btn-primary btn-lg">Predict</button>
+</div>
+
+  <h4>
+            {{prediction}}
+    </h4>
+
+ </div>
+</fieldset>
+</form>
+</div>
+</div>
+</div>
+</div>
+<div class="container">
+
+
+    <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+    
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+</body>
+</html>
